@@ -1,0 +1,90 @@
+
+#define FOTO A0
+#define LED_VERMELHO 9
+#define LED_AMARELO 10
+#define LED_VERDE 11
+#define BUZZ 2
+
+
+#define LIMIAR_VERDE 1000
+#define LIMIAR_AMARELO 400
+
+int nivelAnterior = 0; // Variável para armazenar o nível anterior
+
+void setup() {
+  // Configura os pinos dos LEDs e do buzzer como saída
+  pinMode(LED_VERMELHO, OUTPUT);
+  pinMode(LED_AMARELO, OUTPUT);
+  pinMode(LED_VERDE, OUTPUT);
+  pinMode(BUZZ, OUTPUT);
+
+  // Inicializa a comunicação serial
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Lê o valor do sensor de luminosidade
+  int luminosidade = analogRead(FOTO);
+  
+  // Determina o novo nível de iluminação
+  int novoNivel = determinarNivel(luminosidade);
+
+  // Se houver mudança de nível, atualiza os LEDs e emite um sinal sonoro
+  if (novoNivel != nivelAnterior) {
+    atualizarIluminacao(novoNivel);
+    sinalSonoro();
+    nivelAnterior = novoNivel;
+  }
+
+  // Aguarda um curto intervalo antes de realizar a próxima leitura
+  delay(1000);
+}
+
+// Função para determinar o nível de iluminação
+int determinarNivel(int luminosidade) {
+  Serial.println(luminosidade);
+  if (luminosidade > LIMIAR_VERDE) {
+    return 1; // Nível verde
+  } else if (luminosidade >= LIMIAR_AMARELO) {
+    return 2; // Nível amarelo
+  } else {
+    return 3; // Nível vermelho
+  }
+}
+
+// Função para atualizar os LEDs de acordo com o nível de iluminação
+void atualizarIluminacao(int nivel) {
+  switch (nivel) {
+    case 1: // Verde
+      ligarLED(LED_VERDE);
+      desligarLEDs(LED_AMARELO, LED_VERMELHO);
+      break;
+    case 2: // Amarelo
+      ligarLED(LED_AMARELO);
+      desligarLEDs(LED_VERDE, LED_VERMELHO);
+      break;
+    case 3: // Vermelho
+      ligarLED(LED_VERMELHO);
+      desligarLEDs(LED_VERDE, LED_AMARELO);
+      break;
+  }
+}
+
+// Função para ligar um LED
+void ligarLED(int pino) {
+  digitalWrite(pino, HIGH);
+}
+
+// Função para desligar múltiplos LEDs
+void desligarLEDs(int pino1, int pino2) {
+  digitalWrite(pino1, LOW);
+  digitalWrite(pino2, LOW);
+
+}
+
+// Função para emitir um sinal sonoro
+void sinalSonoro() {
+  tone(BUZZ, 5000); // Emite um som de frequência 1000 Hz
+  delay(100);       // Mantém o som por 100 milissegundos
+  noTone(BUZZ);     // Desliga o som
+}
