@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(218, 245, 208);
+}
+
+.ContainerEsquerda {
+    width: 50%;
+    height: 100vh;
+}
+
+.Contador {
+    height: 40vh;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.NovaTarefa {
+    height: 60vh;
+    margin: 0;
+}
+
+.ContainerDireita {
+    background-color: aqua;
+    width: 50%;
+    height: fit-content;
+}
+
+
+
+.ContadorTarefas {
+    width: 100%;
+    height: fit-content;
+    margin: 3px 5px;
+    padding: 10px 0px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;;
+    border-radius: 10px;
+}
+    
+
+.CriarTarefa {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;;
+    width: 100%;
+}
+
+.CriarTarefa H4{
+    
+}
